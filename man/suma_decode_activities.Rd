@@ -12,7 +12,7 @@ suma_decode_activities(df, key)
 \item{key}{Data frame containing the key table}
 }
 \description{
-This function separates multiple activities on single Suma counts, compares them to a key table, and assigns activity names as appropriate.
+This function separates multiple activities attached to single Suma counts, compares them to a key table, and assigns activity names as appropriate.
 }
 \examples{
 df <- suma_decode_activities(df, sumaKey)
