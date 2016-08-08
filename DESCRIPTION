@@ -11,8 +11,7 @@ License: MIT
 LazyData: TRUE
 Imports:
   dplyr,
-  curl,
   jsonlite,
   lubridate,
+  magrittr,
   tidyr
-
