@@ -1,4 +1,11 @@
-# Compares a date to the terms of the Dartmouth academic calendar from 2009 - 2017
+#' Compares a date to the terms of the Dartmouth academic calendar from 2009 - 2017
+#'
+#' Takes a date or datetime and compares it do the dates of the Dartmouth academic calendar, returns a Term name.
+#' @export
+#' @param date_time A valid date or datetime, i.e., 2016-08-01
+#' @examples
+#' getTerms("2016-05-17")
+#' df$terms <- getTerms(df$time)
 getTerms <- function(date_time){
   ifelse(
     as.Date(date_time) %in% lubridate::ymd(20090625):lubridate::ymd(20090901) |

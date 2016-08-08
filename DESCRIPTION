@@ -2,17 +2,21 @@ Package: sumar
 Type: Package
 Title: Tools to Work with Data from Suma
 Version: 0.1.0
-Author: person("James", "Adams", email = "James.L.Adams@dartmouth.edu", role = c("aut", "cre"))
+Author: person("James", "Adams", email = "James.L.Adams@dartmouth.edu", role =
+    c("aut", "cre"))
 Maintainer: <James.L.Adams@dartmouth.edu>
-Description: A set of tools that you can use to retrieve and manipulate data from Suma, a free and open source tool
-  developed at North Carolina State University's Hunt Library to measure space usage. Suma comes with reporting built
-  in, but using their API to extract the raw data allows for more granular and customized analysis using R. Originally
-  created for the Suma instance set up at Dartmouth College, but should be usable for others.
+Description: A set of tools that you can use to retrieve and manipulate data
+    from Suma, a free and open source tool developed at North Carolina State
+    University's Hunt Library to measure space usage. Suma comes with reporting
+    built in, but using their API to extract the raw data allows for more granular
+    and customized analysis using R. Originally created for the Suma instance set up
+    at Dartmouth College, but should be usable for others.
 License: MIT
 LazyData: TRUE
 Imports:
-  dplyr,
-  jsonlite,
-  lubridate,
-  magrittr,
-  tidyr
+    dplyr,
+    jsonlite,
+    lubridate,
+    magrittr,
+    tidyr
+RoxygenNote: 5.0.1

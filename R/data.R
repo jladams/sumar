@@ -1,11 +1,31 @@
+#' Gather data from the Suma API
+#'
+#' This function hits the Suma API for the selected initiative ID during the given date range.
+#' @importFrom magrittr %>%
+#' @param url The base url, defaults to Dartmouth's https://library.dartmouth.edu/suma/
+#' @param initiativeId The desired initiative to retrieve data for, defaults to 1
+#' @param startDate Desired start date, defaults to beginning of current month
+#' @param endDate Desired end date, defaults to today's date
+#' @export
+#' @examples
+#' df <- suma_from_api("https://library.dartmouth.edu/suma/", 1, "2016-04-01", "2016-08-01")
+
 suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativeId = 1, startDate = cut(Sys.Date(), "month"), endDate = Sys.Date()) {
   jsonlite::fromJSON(paste0(url, "analysis/reports/lib/php/rawDataResults.php?id=", initiativeId, "&sdate=", lubridate::ymd(startDate), "&edate=", lubridate::ymd(endDate)), flatten=TRUE) %>%
-    dplyr::mutate(term=getTerms(time)) %>%
     dplyr::distinct(countId, .keep_all = TRUE)
 }
 
+#' Decode activities from numbers into activity names
+#'
+#' This function separates multiple activities on single Suma counts, compares them to a key table, and assigns activity names as appropriate.
+#' @param df Data frame containing the initial Suma data
+#' @param key Data frame containing the key table
+#' @export
+#' @examples
+#' df <- suma_decode_activities(df, sumaKey)
+
 suma_decode_activities <- function(df, key) {
-  dplyr::left_join(
-    tidyr::unnest(df),
-  key)
+  df %>%
+    tidyr::unnest() %>%
+    dplyr::left_join(key)
 }
