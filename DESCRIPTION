@@ -6,7 +6,8 @@ Author: person("James", "Adams", email = "James.L.Adams@dartmouth.edu", role = c
 Maintainer: <James.L.Adams@dartmouth.edu>
 Description: A set of tools that you can use to retrieve and manipulate data from Suma, a free and open source tool
   developed at North Carolina State University's Hunt Library to measure space usage. Suma comes with reporting built
-  in, but using their API to extract the raw data allows for more granular and customized analysis using R.
+  in, but using their API to extract the raw data allows for more granular and customized analysis using R. Originally
+  created for the Suma instance set up at Dartmouth College, but should be usable for others.
 License: MIT
 LazyData: TRUE
 Imports:
