@@ -52,6 +52,7 @@ suma_max_count <- function(df, groupBy = NULL, filterBy = NULL){
   )
 }
 
+#' Helper function to suma_max_count
 suma_max_nulls <- function(df) {
   df %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
@@ -61,6 +62,7 @@ suma_max_nulls <- function(df) {
     dplyr::summarize(value=max(value))
 }
 
+#' Helper function to suma_max_count
 suma_max_filter <- function(df, filterBy) {
   df %>%
     dplyr::filter_(filterBy) %>%

@@ -6,6 +6,7 @@ Repos: CRAN=https://cran.rstudio.com/
 Package: BH
 Source: CRAN
 Version: 1.60.0-2
+Hash: be2967bcff307e561d9ba17faf03205c
 
 Package: DBI
 Source: CRAN
@@ -45,9 +46,9 @@ Hash: d26f0f41a4c463de690f1a6c63f9cd7f
 Package: devtools
 Source: CRAN
 Version: 1.12.0
+Hash: bbad95109ae75cbb14099281cda43af2
 Requires: digest, git2r, httr, jsonlite, memoise, rstudioapi, whisker,
     withr
-Hash: bbad95109ae75cbb14099281cda43af2
 
 Package: digest
 Source: CRAN
@@ -57,14 +58,14 @@ Hash: 87165608ca8aeb0958835c3c5b52b6b7
 Package: dplyr
 Source: CRAN
 Version: 0.5.0
-Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr, tibble
 Hash: e34869d6b47a9b9579c2e98c20aa7609
+Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr, tibble
 
 Package: evaluate
 Source: CRAN
 Version: 0.9
-Requires: stringr
 Hash: cf338d73ba4ee3a4fefec612cdfd38db
+Requires: stringr
 
 Package: formatR
 Source: CRAN
@@ -84,8 +85,8 @@ Hash: aa3d5b7912b5fed4b546ed5cd2a1760b
 Package: httr
 Source: CRAN
 Version: 1.2.1
-Requires: R6, curl, jsonlite, mime, openssl
 Hash: 7de1f8f760441881804af7c1ff324340
+Requires: R6, curl, jsonlite, mime, openssl
 
 Package: jsonlite
 Source: CRAN
@@ -95,8 +96,8 @@ Hash: f32817e181c39ede83fdd3e699348b69
 Package: knitr
 Source: CRAN
 Version: 1.13
-Requires: digest, evaluate, formatR, highr, markdown, stringr, yaml
 Hash: 8d686cbee88c93b735281a22b2ca59dd
+Requires: digest, evaluate, formatR, highr, markdown, stringr, yaml
 
 Package: lazyeval
 Source: CRAN
@@ -106,8 +107,8 @@ Hash: 3d6e7608e65bbf5cb170dab1e3c9ed8b
 Package: lubridate
 Source: CRAN
 Version: 1.5.6
-Requires: stringr
 Hash: f643b126e45fb537ab731a6451d7541f
+Requires: stringr
 
 Package: magrittr
 Source: CRAN
@@ -117,14 +118,14 @@ Hash: bdc4d48c3135e8f3b399536ddf160df4
 Package: markdown
 Source: CRAN
 Version: 0.7.7
-Requires: mime
 Hash: fea2343a1119d61b0cc5c0a950d103a3
+Requires: mime
 
 Package: memoise
 Source: CRAN
 Version: 1.0.0
-Requires: digest
 Hash: 56e7087c3559eb7ba72a9afb349bf896
+Requires: digest
 
 Package: mime
 Source: CRAN
@@ -149,8 +150,8 @@ Hash: 77da8f1df873a4b91e5c4a68fe2fb1b6
 Package: roxygen2
 Source: CRAN
 Version: 5.0.1
-Requires: Rcpp, brew, digest, stringi, stringr
 Hash: 3569b3fec94a6f24c9467b675d8b33f8
+Requires: Rcpp, brew, digest, stringi, stringr
 
 Package: rstudioapi
 Source: CRAN
@@ -165,26 +166,26 @@ Hash: 48f2afc5dfecb65ba32a87d38b3533ff
 Package: stringr
 Source: CRAN
 Version: 1.0.0
-Requires: magrittr, stringi
 Hash: 2676dd5f88890910962b733b0f9540e1
+Requires: magrittr, stringi
 
 Package: testthat
 Source: CRAN
 Version: 1.0.2
-Requires: R6, crayon, digest, magrittr, praise
 Hash: 88d5291104227f9dc2e7c7c1d0eb6c74
+Requires: R6, crayon, digest, magrittr, praise
 
 Package: tibble
 Source: CRAN
 Version: 1.1
-Requires: Rcpp, assertthat, lazyeval
 Hash: 5467b4aa158b2d984538f7ffde17171c
+Requires: Rcpp, assertthat, lazyeval
 
 Package: tidyr
 Source: CRAN
 Version: 0.5.1
-Requires: Rcpp, dplyr, lazyeval, magrittr, stringi, tibble
 Hash: 56af57d037a1d229dfa50601debf3f4b
+Requires: Rcpp, dplyr, lazyeval, magrittr, stringi, tibble
 
 Package: whisker
 Source: CRAN
