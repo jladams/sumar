@@ -1,0 +1,33 @@
+activities, actName
+-1, No Activity
+1, Activity - Media Project
+2, Activity - Solo Study
+3, Activity - Class/Event
+4, Activity - Group Study
+5, Equipment Usage - None
+6, Equipment Usage - Both
+7, Equipment Usage - JMC Equipment
+8, Equipment Usage - Personal Equipment
+9 , Communication Type - In Person
+10, Communication Type - Phone
+11, Communication Type - Email
+12, Communication Type - Chat
+13, Transaction Type - Lvl 2: Basic Informational
+14, Transaction Type - Lvl 3: Ready Reference
+15, Transaction Type - Lvl 5: In-Depth Reference
+16, Transaction Type - Lvl 1: Directional
+17, Referral to - ITS Help Desk
+18, Referral to - RIS
+19, Referral to - Circulation Desk
+20, Referral to - Reserves
+21, Referral to - Sherman Art Library
+22, Referral to - Resource Sharing
+23, Referral to - Rauner Library
+24, Referral to - Jones Media Center
+25, Referral to - Other
+26, Transaction Type - Lvl 4: Supportive Reference
+27, Details - Bathroom
+28, Details - Berry LL
+29, Details - Event Info
+30, Details - Headphones
+31, Details - Office Supplies

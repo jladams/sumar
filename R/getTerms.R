@@ -5,6 +5,8 @@
 #' @param date_time A valid date or datetime, i.e., 2016-08-01
 #' @examples
 #' getTerms("2016-05-17")
+#'
+#' df <- suma_from_api()
 #' df$terms <- getTerms(df$time)
 getTerms <- function(date_time){
   ifelse(

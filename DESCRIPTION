@@ -11,7 +11,7 @@ Description: A set of tools that you can use to retrieve and manipulate data
     built in, but using their API to extract the raw data allows for more granular
     and customized analysis using R. Originally created for the Suma instance set up
     at Dartmouth College, but should be usable for others.
-License: MIT
+License: file LICENSE
 LazyData: TRUE
 Imports:
     dplyr,

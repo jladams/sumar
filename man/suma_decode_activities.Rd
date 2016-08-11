@@ -15,6 +15,8 @@ suma_decode_activities(df, key)
 This function separates multiple activities attached to single Suma counts, compares them to a key table, and assigns activity names as appropriate.
 }
 \examples{
-df <- suma_decode_activities(df, sumaKey)
+df <- suma_from_api()
+sumaKey <- read.csv("./data/sumaKey.csv")
+dfDecoded <- suma_decode_activities(df, sumaKey)
 }
 

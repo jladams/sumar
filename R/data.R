@@ -23,7 +23,9 @@ suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativ
 #' @param key Data frame containing the key table
 #' @export
 #' @examples
-#' df <- suma_decode_activities(df, sumaKey)
+#' df <- suma_from_api()
+#' sumaKey <- read.csv("./data/sumaKey.csv")
+#' dfDecoded <- suma_decode_activities(df, sumaKey)
 
 suma_decode_activities <- function(df, key) {
   df %>%
@@ -45,7 +47,7 @@ suma_max_count <- function(df, groupBy = NULL, filterBy = NULL){
     ifelse(is.null(groupBy) & !is.null(filterBy),
       suma_max_filter(df, filterBy),
       ifelse(!is.null(groupBy) & is.null(filterBy),
-        suma_max_group(df),
+        suma_max_group(df, groupBy),
         suma_max_full(df)
       )
     )
@@ -53,6 +55,7 @@ suma_max_count <- function(df, groupBy = NULL, filterBy = NULL){
 }
 
 #' Helper function to suma_max_count
+#' @inheritParams suma_max_count
 suma_max_nulls <- function(df) {
   df %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
@@ -63,6 +66,7 @@ suma_max_nulls <- function(df) {
 }
 
 #' Helper function to suma_max_count
+#' @inheritParams suma_max_count
 suma_max_filter <- function(df, filterBy) {
   df %>%
     dplyr::filter_(filterBy) %>%
@@ -70,5 +74,16 @@ suma_max_filter <- function(df, filterBy) {
     dplyr::group_by(hour=lubridate::hour(time), sessionId) %>%
     dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%
+    dplyr::summarize(value=max(value))
+}
+
+#' Helper function to suma_max_count
+#' @inheritParams suma_max_count
+suma_max_group <- function(df, groupBy) {
+  df %>%
+    dplyr::distinct(countId, .keep_all = TRUE) %>%
+    dplyr::group_by(hour=lubridate::hour(time), sessionId, groupBy) %>%
+    dplyr::summarize(value=n()) %>%
+    dplyr::group_by(groupBy) %>%
     dplyr::summarize(value=max(value))
 }

@@ -6,6 +6,9 @@
 \usage{
 suma_max_nulls(df)
 }
+\arguments{
+\item{df}{Data frame containing Suma Data}
+}
 \description{
 Helper function to suma_max_count
 }

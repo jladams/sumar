@@ -14,6 +14,8 @@ Takes a date or datetime and compares it do the dates of the Dartmouth academic 
 }
 \examples{
 getTerms("2016-05-17")
+
+df <- suma_from_api()
 df$terms <- getTerms(df$time)
 }
 
