@@ -12,6 +12,8 @@ suma_math_conditions(df, groupBy = NULL, filterBy = NULL, op)
 \item{groupBy}{Optional argument to group data, such as term, weekday, time}
 
 \item{filterBy}{Optional argument to filter results}
+
+\item{op}{Used to specify which operation will be used (min, max, mean, etc.)}
 }
 \description{
 Helper function to suma_MATH_count

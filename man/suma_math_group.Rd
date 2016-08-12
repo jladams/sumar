@@ -10,6 +10,8 @@ suma_math_group(df, groupBy, op)
 \item{df}{Data frame containing Suma Data}
 
 \item{groupBy}{Optional argument to group data, such as term, weekday, time}
+
+\item{op}{Used to specify which operation will be used (min, max, mean, etc.)}
 }
 \description{
 Helper function to suma_MATH_count

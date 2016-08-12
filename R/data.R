@@ -69,7 +69,10 @@ suma_mean_count <- function(df, groupBy = NULL, filterBy = NULL){
 }
 
 #' Helper function to suma_MATH_count
-#' @inheritParams suma_max_count
+#' @param df Data frame containing Suma Data
+#' @param groupBy Optional argument to group data, such as term, weekday, time
+#' @param filterBy Optional argument to filter results
+#' @param op Used to specify which operation will be used (min, max, mean, etc.)
 suma_math_conditions <- function(df, groupBy = NULL, filterBy = NULL, op) {
   ifelse(is.null(groupBy) & is.null(filterBy),
          suma_math_nulls(df, op),
@@ -84,35 +87,35 @@ suma_math_conditions <- function(df, groupBy = NULL, filterBy = NULL, op) {
 }
 
 #' Helper function to suma_MATH_count
-#' @inheritParams suma_max_count
+#' @inheritParams suma_math_conditions
 suma_math_nulls <- function(df, op) {
   df %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::group_by(hour=lubridate::hour(time), sessionId) %>%
-    dplyr::summarize(value=n()) %>%
+    dplyr::summarize(value=dplyr::n()) %>%
     dplyr::ungroup() %>%
     dplyr::summarize(value=op(value))
 }
 
 #' Helper function to suma_MATH_count
-#' @inheritParams suma_max_count
+#' @inheritParams suma_math_conditions
 suma_math_filter <- function(df, filterBy, op) {
   df %>%
     dplyr::filter_(filterBy) %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::group_by(hour=lubridate::hour(time), sessionId) %>%
-    dplyr::summarize(value=n()) %>%
+    dplyr::summarize(value=dplyr::n()) %>%
     dplyr::ungroup() %>%
     dplyr::summarize(value=op(value))
 }
 
 #' Helper function to suma_MATH_count
-#' @inheritParams suma_max_count
+#' @inheritParams suma_math_conditions
 suma_math_group <- function(df, groupBy, op) {
   df %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::group_by_(groupBy) %>%
-    dplyr::summarize(value=n()) %>%
+    dplyr::summarize(value=dplyr::n()) %>%
     dplyr::group_by_(groupBy) %>%
     dplyr::summarize(value=op(value))
 }

@@ -10,6 +10,8 @@ suma_math_filter(df, filterBy, op)
 \item{df}{Data frame containing Suma Data}
 
 \item{filterBy}{Optional argument to filter results}
+
+\item{op}{Used to specify which operation will be used (min, max, mean, etc.)}
 }
 \description{
 Helper function to suma_MATH_count

@@ -8,6 +8,8 @@ suma_math_nulls(df, op)
 }
 \arguments{
 \item{df}{Data frame containing Suma Data}
+
+\item{op}{Used to specify which operation will be used (min, max, mean, etc.)}
 }
 \description{
 Helper function to suma_MATH_count
