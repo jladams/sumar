@@ -16,6 +16,7 @@ LazyData: TRUE
 Imports:
     dplyr,
     jsonlite,
+    lazyeval,
     lubridate,
     magrittr,
     tidyr
