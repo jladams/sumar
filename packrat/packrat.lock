@@ -1,7 +1,11 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.7.1
 RVersion: 3.3.1
-Repos: CRAN=https://cran.rstudio.com/
+Repos: BioCsoft=https://bioconductor.org/packages/3.3/bioc,
+    BioCann=https://bioconductor.org/packages/3.3/data/annotation,
+    BioCexp=https://bioconductor.org/packages/3.3/data/experiment,
+    BioCextra=https://bioconductor.org/packages/3.3/extra,
+    CRAN=https://cran.rstudio.com/
 
 Package: BH
 Source: CRAN
@@ -44,11 +48,15 @@ Version: 1.1
 Hash: d26f0f41a4c463de690f1a6c63f9cd7f
 
 Package: devtools
-Source: CRAN
-Version: 1.12.0
-Hash: bbad95109ae75cbb14099281cda43af2
+Source: github
+Version: 1.12.0.9000
+Hash: 05311cebd4e3faa72c47158751473902
 Requires: digest, git2r, httr, jsonlite, memoise, rstudioapi, whisker,
     withr
+GithubRepo: devtools
+GithubUsername: hadley
+GithubRef: master
+GithubSha1: ebcf37e600e00e6467f069ccafb5c4c5873bcf0f
 
 Package: digest
 Source: CRAN
