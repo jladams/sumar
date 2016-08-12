@@ -24,8 +24,8 @@ suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativ
 #' @export
 #' @examples
 #' df <- suma_from_api()
-#' sumaKey <- read.csv("./data/sumaKey.csv")
-#' dfDecoded <- suma_decode_activities(df, sumaKey)
+#' \dontrun{sumaKey <- read.csv("./data/sumaKey.csv")}
+#' \dontrun{dfDecoded <- suma_decode_activities(df, sumaKey)}
 
 suma_decode_activities <- function(df, key) {
   df %>%

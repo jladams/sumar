@@ -16,7 +16,7 @@ This function separates multiple activities attached to single Suma counts, comp
 }
 \examples{
 df <- suma_from_api()
-sumaKey <- read.csv("./data/sumaKey.csv")
-dfDecoded <- suma_decode_activities(df, sumaKey)
+\dontrun{sumaKey <- read.csv("./data/sumaKey.csv")}
+\dontrun{dfDecoded <- suma_decode_activities(df, sumaKey)}
 }
 
