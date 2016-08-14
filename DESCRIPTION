@@ -15,6 +15,7 @@ License: file LICENSE
 LazyData: TRUE
 Imports:
     dplyr,
+    ggplot2,
     jsonlite,
     lazyeval,
     lubridate,

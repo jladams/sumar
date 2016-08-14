@@ -116,7 +116,6 @@ suma_math_conditions <- function(df, groupBy = NULL, filterBy = NULL, op) {
 #' @inheritParams suma_math_conditions
 suma_math_nulls <- function(df, op) {
   df %>%
-    dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::group_by(sessionId) %>%
     dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%
@@ -127,7 +126,6 @@ suma_math_nulls <- function(df, op) {
 #' @inheritParams suma_math_conditions
 suma_math_filter <- function(df, filterBy, op) {
   df <- df %>%
-    dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::filter_(filterBy) %>%
     dplyr::group_by(sessionId) %>%
     dplyr::summarize(value = n()) %>%
@@ -141,7 +139,6 @@ suma_math_filter <- function(df, filterBy, op) {
 suma_math_group <- function(df, groupBy, op) {
   tmp <- c(groupBy, "sessionId")
   df <- df %>%
-    dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::group_by_(.dots = tmp) %>%
     dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%
@@ -155,7 +152,6 @@ suma_math_group <- function(df, groupBy, op) {
 suma_math_full <- function(df, groupBy, filterBy, op) {
   tmp <- c(groupBy, "sessionId")
   df <- df %>%
-    dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::filter_(filterBy) %>%
     dplyr::group_by_(.dots = tmp) %>%
     dplyr::summarize(value=n()) %>%
