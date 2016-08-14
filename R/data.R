@@ -6,14 +6,23 @@
 #' @param initiativeId The desired initiative to retrieve data for, defaults to 1
 #' @param startDate Desired start date, defaults to beginning of current month
 #' @param endDate Desired end date, defaults to today's date
+#' @param sepDates Creates columns for easy grouping and sorting of date and time from sessionStart
 #' @export
 #' @examples
 #' df <- suma_from_api("https://library.dartmouth.edu/suma/", 1, "2016-04-01", "2016-08-01")
 
-suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativeId = 1, startDate = cut(Sys.Date(), "month"), endDate = Sys.Date()) {
-  jsonlite::fromJSON(paste0(url, "analysis/reports/lib/php/rawDataResults.php?id=", initiativeId, "&sdate=", lubridate::ymd(startDate), "&edate=", lubridate::ymd(endDate)), flatten=TRUE) %>%
+suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativeId = 1, startDate = cut(Sys.Date(), "month"), endDate = Sys.Date(), sepDates = TRUE) {
+  df <- jsonlite::fromJSON(paste0(url, "analysis/reports/lib/php/rawDataResults.php?id=", initiativeId, "&sdate=", lubridate::ymd(startDate), "&edate=", lubridate::ymd(endDate)), flatten=TRUE) %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
     tidyr::unnest()
+  if(sepDates){
+    df$year <- lubridate::year(df$sessionStart)
+    df$month <- lubridate::month(df$sessionStart)
+    df$day <- lubridate::day(df$sessionStart)
+    df$wDay <- lubridate::wday(df$sessionStart, label = TRUE)
+    df$hour <- lubridate::hour(df$sessionStart)
+  }
+  return(df)
 }
 
 #' Decode activities from numbers into activity names
@@ -159,6 +168,21 @@ suma_math_group <- function(df, groupBy, op) {
   tmp <- c(groupBy, "sessionId")
   df <- df %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
+    dplyr::group_by_(.dots = tmp) %>%
+    dplyr::summarize(value=n()) %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by_(.dots = groupBy) %>%
+    dplyr::summarize(value = op(value))
+  return(df)
+}
+
+#' Helper function to suma_MATH_count
+#' @inheritParams suma_math_conditions
+suma_math_full <- function(df, groupBy, filterBy, op) {
+  tmp <- c(groupBy, "sessionId")
+  df <- df %>%
+    dplyr::distinct(countId, .keep_all = TRUE) %>%
+    dplyr::filter_(filterBy) %>%
     dplyr::group_by_(.dots = tmp) %>%
     dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%

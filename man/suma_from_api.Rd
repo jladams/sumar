@@ -5,7 +5,8 @@
 \title{Gather data from the Suma API}
 \usage{
 suma_from_api(url = "https://library.dartmouth.edu/suma/", initiativeId = 1,
-  startDate = cut(Sys.Date(), "month"), endDate = Sys.Date())
+  startDate = cut(Sys.Date(), "month"), endDate = Sys.Date(),
+  sepDates = TRUE)
 }
 \arguments{
 \item{url}{The base url, defaults to Dartmouth's https://library.dartmouth.edu/suma/}
@@ -15,6 +16,8 @@ suma_from_api(url = "https://library.dartmouth.edu/suma/", initiativeId = 1,
 \item{startDate}{Desired start date, defaults to beginning of current month}
 
 \item{endDate}{Desired end date, defaults to today's date}
+
+\item{sepDates}{Creates columns for easy grouping and sorting of date and time from sessionStart}
 }
 \description{
 This function hits the Suma API for the selected initiative ID during the given date range.
