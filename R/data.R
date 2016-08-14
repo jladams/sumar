@@ -58,19 +58,34 @@ suma_max_count <- function(df, filterBy = NULL, groupBy = NULL){
 #' @param filterBy Optional argument to filter results
 
 suma_min_count <- function(df, groupBy = NULL, filterBy = NULL){
- suma_math_conditions(df, groupBy, filterBy, op=min)
+  df <- suma_math_conditions(df, groupBy, filterBy, op=min)
+  return(df)
 }
 
-#' Determine the mean count from a single session
+#' Determine the mean count across sessions
 #'
-#' This function determines the mean count across, with the option to group or filter results
+#' This function determines the mean count across sessions, with the option to group or filter results
 #' @export
 #' @param df Data frame containing Suma Data
 #' @param groupBy Optional argument to group data, such as term, weekday, time
 #' @param filterBy Optional argument to filter results
 
 suma_mean_count <- function(df, groupBy = NULL, filterBy = NULL){
-  suma_math_conditions(df, groupBy, filterBy, op=mean)
+  df <- suma_math_conditions(df, groupBy, filterBy, op=mean)
+  return(df)
+}
+
+#' Determine the median count across sessions
+#'
+#' This function determines the median count across sessions, with the option to group or filter results
+#' @export
+#' @param df Data frame containing Suma Data
+#' @param groupBy Optional argument to group data, such as term, weekday, time
+#' @param filterBy Optional argument to filter results
+
+suma_median_count <- function(df, groupBy = NULL, filterBy = NULL){
+  df <- suma_math_conditions(df, groupBy, filterBy, op=median)
+  return(df)
 }
 
 #' Helper function to suma_MATH_count
