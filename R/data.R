@@ -44,9 +44,10 @@ suma_decode_activities <- function(df, key) {
 #' @param groupActs Optional argument to group data by activity
 #' @param filterBy Optional argument to filter results
 
-suma_max_count <- function(df, filterBy = NULL, groupLocation = FALSE, groupHour = FALSE, groupWeekday = FALSE, groupMonth = FALSE, groupActs = FALSE, op){
-  groupBy <- suma_group_check(groupLocation, groupHour, groupWeekday, groupMonth, groupActs)
-  suma_math_conditions(df, groupBy, filterBy, op=max)
+suma_max_count <- function(df, filterBy = NULL, groupBy = NULL){
+#  groupBy <- suma_group_check(groupLocation, groupHour, groupWeekday, groupMonth, groupActs)
+  df <- suma_math_conditions(df, groupBy, filterBy, op = max)
+  return(df)
 }
 
 #' Determine the lowest actual count across sessions
@@ -78,12 +79,12 @@ suma_mean_count <- function(df, groupBy = NULL, filterBy = NULL){
 #' @param groupBy Optional argument to group data, such as term, weekday, time
 #' @param filterBy Optional argument to filter results
 #' @param op Used to specify which operation will be used (min, max, mean, etc.)
-suma_math_conditions <- function(df, groupBy, filterBy = NULL, op) {
-  ifelse(length(groupBy) == 0 & is.null(filterBy),
+suma_math_conditions <- function(df, groupBy = NULL, filterBy = NULL, op) {
+  ifelse(is.null(groupBy) & is.null(filterBy),
          suma_math_nulls(df, op),
-         ifelse(length(groupBy) == 0 & !is.null(filterBy),
+         ifelse(is.null(groupBy) & !is.null(filterBy),
                 suma_math_filter(df, filterBy, op),
-                ifelse(length(groupBy) != 0 & is.null(filterBy),
+                ifelse(!is.null(groupBy) & is.null(filterBy),
                        suma_math_group(df, groupBy, op),
                        suma_math_full(df, groupBy, filterBy, op)
                 )
@@ -99,13 +100,13 @@ suma_group_check <- function(groupLocation = FALSE, groupHour = FALSE, groupWeek
     groupBy <- c(groupBy, "location")
   }
   if(isTRUE(groupHour)){
-    groupBy <- c(groupBy, "lubridate::hour(time)")
+    groupBy <- c(groupBy, "lubridate::hour(sessionStart)")
   }
   if(isTRUE(groupWeekday)){
-    groupBy <- c(groupBy, "lubridate::wday(time)")
+    groupBy <- c(groupBy, "lubridate::wday(sessionStart)")
   }
   if(isTRUE(groupMonth)){
-    groupBy <- c(groupBy, "lubridate::month(time)")
+    groupBy <- c(groupBy, "lubridate::month(sessionStart)")
   }
   if(isTRUE(groupActs)){
     groupBy <- c(groupBy, "activities")
@@ -116,32 +117,30 @@ suma_group_check <- function(groupLocation = FALSE, groupHour = FALSE, groupWeek
 #' Helper function to suma_MATH_count
 #' @inheritParams suma_math_conditions
 suma_math_nulls <- function(df, op) {
-  df %>%
-    dplyr::distinct(countId, .keep_all = TRUE) %>%
-    dplyr::group_by(hour=lubridate::hour(time), sessionId) %>%
+  df <- df %>%
+    dplyr::group_by(sessionId) %>%
     dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%
     dplyr::summarize(value=op(value))
+  return(df)
 }
 
 #' Helper function to suma_MATH_count
 #' @inheritParams suma_math_conditions
 suma_math_filter <- function(df, filterBy, op) {
-  df %>%
+  df <- df %>%
     dplyr::filter_(filterBy) %>%
-    dplyr::distinct(countId, .keep_all = TRUE) %>%
-    dplyr::group_by(hour=lubridate::hour(time), sessionId) %>%
+    dplyr::group_by(sessionId) %>%
     dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%
     dplyr::summarize(value=op(value))
+  return(df)
 }
 
 #' Helper function to suma_MATH_count
 #' @inheritParams suma_math_conditions
 suma_math_group <- function(df, groupBy, op) {
-  df <- df %>%
-    dplyr::distinct(countId, .keep_all = TRUE) %>%
-    dplyr::group_by_(.dots = groupBy) %>%
-    dplyr::summarise_(value=~n)
+#  groupBy <- c(groupBy, "sessionId")
+
   return(df)
 }
