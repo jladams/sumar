@@ -45,7 +45,6 @@ suma_decode_activities <- function(df, key) {
 #' @param filterBy Optional argument to filter results
 
 suma_max_count <- function(df, filterBy = NULL, groupBy = NULL){
-#  groupBy <- suma_group_check(groupLocation, groupHour, groupWeekday, groupMonth, groupActs)
   df <- suma_math_conditions(df, groupBy, filterBy, op = max)
   return(df)
 }
@@ -81,15 +80,16 @@ suma_mean_count <- function(df, groupBy = NULL, filterBy = NULL){
 #' @param op Used to specify which operation will be used (min, max, mean, etc.)
 suma_math_conditions <- function(df, groupBy = NULL, filterBy = NULL, op) {
   ifelse(is.null(groupBy) & is.null(filterBy),
-         suma_math_nulls(df, op),
+         df <- suma_math_nulls(df, op),
          ifelse(is.null(groupBy) & !is.null(filterBy),
-                suma_math_filter(df, filterBy, op),
+                df <- suma_math_filter(df, filterBy, op),
                 ifelse(!is.null(groupBy) & is.null(filterBy),
-                       suma_math_group(df, groupBy, op),
-                       suma_math_full(df, groupBy, filterBy, op)
+                       df <- suma_math_group(df, groupBy, op),
+                       df <- suma_math_full(df, groupBy, filterBy, op)
                 )
          )
   )
+  return(df)
 }
 
 #' Helper function, checks whether to group results of Suma math functions and returns vector for use later
@@ -117,30 +117,37 @@ suma_group_check <- function(groupLocation = FALSE, groupHour = FALSE, groupWeek
 #' Helper function to suma_MATH_count
 #' @inheritParams suma_math_conditions
 suma_math_nulls <- function(df, op) {
-  df <- df %>%
+  df %>%
+    dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::group_by(sessionId) %>%
     dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%
     dplyr::summarize(value=op(value))
-  return(df)
 }
 
 #' Helper function to suma_MATH_count
 #' @inheritParams suma_math_conditions
 suma_math_filter <- function(df, filterBy, op) {
   df <- df %>%
+    dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::filter_(filterBy) %>%
     dplyr::group_by(sessionId) %>%
-    dplyr::summarize(value=n()) %>%
+    dplyr::summarize(value = n()) %>%
     dplyr::ungroup() %>%
-    dplyr::summarize(value=op(value))
+    dplyr::summarize(value = op(value))
   return(df)
 }
 
 #' Helper function to suma_MATH_count
 #' @inheritParams suma_math_conditions
 suma_math_group <- function(df, groupBy, op) {
-#  groupBy <- c(groupBy, "sessionId")
-
+  tmp <- c(groupBy, "sessionId")
+  df <- df %>%
+    dplyr::distinct(countId, .keep_all = TRUE) %>%
+    dplyr::group_by_(.dots = tmp) %>%
+    dplyr::summarize(value=n()) %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by_(.dots = groupBy) %>%
+    dplyr::summarize(value = op(value))
   return(df)
 }
