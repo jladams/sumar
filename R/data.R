@@ -37,10 +37,15 @@ suma_decode_activities <- function(df, key) {
 #' This function determines the maximum count across sessions, with the option to group or filter results
 #' @export
 #' @param df Data frame containing Suma Data
-#' @param groupBy Optional argument to group data, such as term, weekday, time
+#' @param groupLocation Optional argument to group data by location
+#' @param groupHour Optional argument to group data by hour of day
+#' @param groupWeekday Optional argument to group data by day of the week
+#' @param groupMonth Optional argument to group data by month
+#' @param groupActs Optional argument to group data by activity
 #' @param filterBy Optional argument to filter results
 
-suma_max_count <- function(df, groupBy = NULL, filterBy = NULL){
+suma_max_count <- function(df, filterBy = NULL, groupLocation = FALSE, groupHour = FALSE, groupWeekday = FALSE, groupMonth = FALSE, groupActs = FALSE, op){
+  groupBy <- suma_group_check(groupLocation, groupHour, groupWeekday, groupMonth, groupActs)
   suma_math_conditions(df, groupBy, filterBy, op=max)
 }
 
@@ -73,17 +78,39 @@ suma_mean_count <- function(df, groupBy = NULL, filterBy = NULL){
 #' @param groupBy Optional argument to group data, such as term, weekday, time
 #' @param filterBy Optional argument to filter results
 #' @param op Used to specify which operation will be used (min, max, mean, etc.)
-suma_math_conditions <- function(df, groupBy = NULL, filterBy = NULL, op) {
-  ifelse(is.null(groupBy) & is.null(filterBy),
+suma_math_conditions <- function(df, groupBy, filterBy = NULL, op) {
+  ifelse(length(groupBy) == 0 & is.null(filterBy),
          suma_math_nulls(df, op),
-         ifelse(is.null(groupBy) & !is.null(filterBy),
+         ifelse(length(groupBy) == 0 & !is.null(filterBy),
                 suma_math_filter(df, filterBy, op),
-                ifelse(!is.null(groupBy) & is.null(filterBy),
+                ifelse(length(groupBy) != 0 & is.null(filterBy),
                        suma_math_group(df, groupBy, op),
                        suma_math_full(df, groupBy, filterBy, op)
                 )
          )
   )
+}
+
+#' Helper function, checks whether to group results of Suma math functions and returns vector for use later
+#' @inheritParams suma_max_count
+suma_group_check <- function(groupLocation = FALSE, groupHour = FALSE, groupWeekday = FALSE, groupMonth = FALSE, groupActs = FALSE){
+  groupBy <- vector(mode="character", length = 0)
+  if(isTRUE(groupLocation)){
+    groupBy <- c(groupBy, "location")
+  }
+  if(isTRUE(groupHour)){
+    groupBy <- c(groupBy, "lubridate::hour(time)")
+  }
+  if(isTRUE(groupWeekday)){
+    groupBy <- c(groupBy, "lubridate::wday(time)")
+  }
+  if(isTRUE(groupMonth)){
+    groupBy <- c(groupBy, "lubridate::month(time)")
+  }
+  if(isTRUE(groupActs)){
+    groupBy <- c(groupBy, "activities")
+  }
+  return(groupBy)
 }
 
 #' Helper function to suma_MATH_count
@@ -92,7 +119,7 @@ suma_math_nulls <- function(df, op) {
   df %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::group_by(hour=lubridate::hour(time), sessionId) %>%
-    dplyr::summarize(value=dplyr::n()) %>%
+    dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%
     dplyr::summarize(value=op(value))
 }
@@ -104,7 +131,7 @@ suma_math_filter <- function(df, filterBy, op) {
     dplyr::filter_(filterBy) %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
     dplyr::group_by(hour=lubridate::hour(time), sessionId) %>%
-    dplyr::summarize(value=dplyr::n()) %>%
+    dplyr::summarize(value=n()) %>%
     dplyr::ungroup() %>%
     dplyr::summarize(value=op(value))
 }
@@ -112,10 +139,9 @@ suma_math_filter <- function(df, filterBy, op) {
 #' Helper function to suma_MATH_count
 #' @inheritParams suma_math_conditions
 suma_math_group <- function(df, groupBy, op) {
-  df %>%
+  df <- df %>%
     dplyr::distinct(countId, .keep_all = TRUE) %>%
-    dplyr::group_by_(groupBy) %>%
-    dplyr::summarize(value=dplyr::n()) %>%
-    dplyr::group_by_(groupBy) %>%
-    dplyr::summarize(value=op(value))
+    dplyr::group_by_(.dots = groupBy) %>%
+    dplyr::summarise_(value=~n)
+  return(df)
 }
