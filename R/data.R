@@ -19,7 +19,7 @@ suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativ
     df$year <- lubridate::year(df$sessionStart)
     df$month <- lubridate::month(df$sessionStart)
     df$day <- lubridate::day(df$sessionStart)
-    df$wDay <- lubridate::wday(df$sessionStart, label = TRUE)
+    df$wday <- lubridate::wday(df$sessionStart, label = TRUE)
     df$hour <- lubridate::hour(df$sessionStart)
   }
   return(df)
@@ -47,10 +47,7 @@ suma_decode_activities <- function(df, key) {
 #' @export
 #' @param df Data frame containing Suma Data
 #' @param groupLocation Optional argument to group data by location
-#' @param groupHour Optional argument to group data by hour of day
-#' @param groupWeekday Optional argument to group data by day of the week
-#' @param groupMonth Optional argument to group data by month
-#' @param groupActs Optional argument to group data by activity
+#' @param groupBy Optional argument to group data, such as term, wday, time
 #' @param filterBy Optional argument to filter results
 
 suma_max_count <- function(df, filterBy = NULL, groupBy = NULL){

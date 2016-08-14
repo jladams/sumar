@@ -9,14 +9,6 @@ suma_group_check(groupLocation = FALSE, groupHour = FALSE,
 }
 \arguments{
 \item{groupLocation}{Optional argument to group data by location}
-
-\item{groupHour}{Optional argument to group data by hour of day}
-
-\item{groupWeekday}{Optional argument to group data by day of the week}
-
-\item{groupMonth}{Optional argument to group data by month}
-
-\item{groupActs}{Optional argument to group data by activity}
 }
 \description{
 Helper function, checks whether to group results of Suma math functions and returns vector for use later

@@ -8,7 +8,7 @@
 #'
 #' df <- suma_from_api()
 #' df$terms <- getTerms(df$time)
-getTerms <- function(date_time){
+suma_get_terms <- function(date_time){
   ifelse(
     as.Date(date_time) %in% lubridate::ymd(20090625):lubridate::ymd(20090901) |
       as.Date(date_time) %in% lubridate::ymd(20100624):lubridate::ymd(20100831) |

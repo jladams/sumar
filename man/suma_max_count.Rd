@@ -11,15 +11,9 @@ suma_max_count(df, filterBy = NULL, groupBy = NULL)
 
 \item{filterBy}{Optional argument to filter results}
 
+\item{groupBy}{Optional argument to group data, such as term, wday, time}
+
 \item{groupLocation}{Optional argument to group data by location}
-
-\item{groupHour}{Optional argument to group data by hour of day}
-
-\item{groupWeekday}{Optional argument to group data by day of the week}
-
-\item{groupMonth}{Optional argument to group data by month}
-
-\item{groupActs}{Optional argument to group data by activity}
 }
 \description{
 This function determines the maximum count across sessions, with the option to group or filter results
