@@ -12,8 +12,6 @@ suma_max_count(df, filterBy = NULL, groupBy = NULL)
 \item{filterBy}{Optional argument to filter results}
 
 \item{groupBy}{Optional argument to group data, such as term, wday, time}
-
-\item{groupLocation}{Optional argument to group data by location}
 }
 \description{
 This function determines the maximum count across sessions, with the option to group or filter results

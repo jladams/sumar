@@ -46,7 +46,6 @@ suma_decode_activities <- function(df, key) {
 #' This function determines the maximum count across sessions, with the option to group or filter results
 #' @export
 #' @param df Data frame containing Suma Data
-#' @param groupLocation Optional argument to group data by location
 #' @param groupBy Optional argument to group data, such as term, wday, time
 #' @param filterBy Optional argument to filter results
 
@@ -111,28 +110,6 @@ suma_math_conditions <- function(df, groupBy = NULL, filterBy = NULL, op) {
          )
   )
   return(df)
-}
-
-#' Helper function, checks whether to group results of Suma math functions and returns vector for use later
-#' @inheritParams suma_max_count
-suma_group_check <- function(groupLocation = FALSE, groupHour = FALSE, groupWeekday = FALSE, groupMonth = FALSE, groupActs = FALSE){
-  groupBy <- vector(mode="character", length = 0)
-  if(isTRUE(groupLocation)){
-    groupBy <- c(groupBy, "location")
-  }
-  if(isTRUE(groupHour)){
-    groupBy <- c(groupBy, "lubridate::hour(sessionStart)")
-  }
-  if(isTRUE(groupWeekday)){
-    groupBy <- c(groupBy, "lubridate::wday(sessionStart)")
-  }
-  if(isTRUE(groupMonth)){
-    groupBy <- c(groupBy, "lubridate::month(sessionStart)")
-  }
-  if(isTRUE(groupActs)){
-    groupBy <- c(groupBy, "activities")
-  }
-  return(groupBy)
 }
 
 #' Helper function to suma_MATH_count
