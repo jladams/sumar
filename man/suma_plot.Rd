@@ -5,7 +5,8 @@
 \title{Quickly plot Suma data using ggplot2}
 \usage{
 suma_plot(df, xVar, op = "max", groupBy = NULL, filterBy = NULL,
-  facetBy = NULL, fillBy = NULL, yVar = "value", legend = TRUE)
+  facetBy = NULL, fillBy = NULL, yVar = "value", legend = TRUE,
+  position = "stack")
 }
 \arguments{
 \item{df}{Data frame containing Suma Data}
@@ -14,13 +15,19 @@ suma_plot(df, xVar, op = "max", groupBy = NULL, filterBy = NULL,
 
 \item{op}{What operation you want to use to get the data}
 
-\item{groupBy}{Optional variable defining how to group data}
+\item{groupBy}{Optional argument defining how to group data}
 
-\item{filterBy}{Optional variable defining how to filter data}
+\item{filterBy}{Optional argument defining how to filter data}
 
-\item{facetBy}{Optional variable for faceting your plot}
+\item{facetBy}{Optional argument to define faceting your plot}
 
-\item{fillBy}{Optional variable to define the fill of the bars}
+\item{fillBy}{Optional argument to define the fill of the bars}
+
+\item{yVar}{Optional argument to specify variable you'd like to use fo the Y axis of your plot(s), defaults to "value"}
+
+\item{legend}{Optional argument to decide whether to display legend (default TRUE)}
+
+\item{position}{Optional argument to define position of bars, takes standard ggplot2 geom_bar arguments}
 }
 \description{
 Quickly plot Suma data with a pre-defined bar chart
