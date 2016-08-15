@@ -15,7 +15,7 @@ suma_plot <- function(df, x, op = "max", groupBy = NULL, filterBy = NULL, facetB
   df <- func(df, filterBy, groupBy)
   p <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = value))
   if(!is.null(fillBy)){
-    p <- p + ggplot2::geom_bar(aes(fill = fillBy), stat = "identity")
+    p <- p + ggplot2::geom_bar(aes(fill = eval(fillBy)), stat = "identity")
   }
   if(!is.null(facetBy)){
     p <- p + ggplot2::facet_wrap(facetBy)
