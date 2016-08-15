@@ -5,7 +5,7 @@
 \title{Quickly plot Suma data using ggplot2}
 \usage{
 suma_plot(df, xVar, op = "max", groupBy = NULL, filterBy = NULL,
-  facetBy = NULL, fillBy = NULL)
+  facetBy = NULL, fillBy = NULL, yVar = "value", legend = TRUE)
 }
 \arguments{
 \item{df}{Data frame containing Suma Data}

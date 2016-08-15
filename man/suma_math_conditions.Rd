@@ -4,14 +4,14 @@
 \alias{suma_math_conditions}
 \title{Helper function to suma_MATH_count}
 \usage{
-suma_math_conditions(df, groupBy = NULL, filterBy = NULL, op)
+suma_math_conditions(df, filterBy = NULL, groupBy = NULL, op)
 }
 \arguments{
 \item{df}{Data frame containing Suma Data}
 
-\item{groupBy}{Optional argument to group data, such as term, weekday, time}
-
 \item{filterBy}{Optional argument to filter results}
+
+\item{groupBy}{Optional argument to group data, such as term, weekday, time}
 
 \item{op}{Used to specify which operation will be used (min, max, mean, etc.)}
 }

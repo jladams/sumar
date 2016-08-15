@@ -9,16 +9,29 @@
 #' @param facetBy Optional variable for faceting your plot
 #' @param fillBy Optional variable to define the fill of the bars
 #' @export
-suma_plot <- function(df, xVar, op = "max", groupBy = NULL, filterBy = NULL, facetBy = NULL, fillBy = NULL) {
+suma_plot <- function(df, xVar, op = "max", groupBy = NULL, filterBy = NULL, facetBy = NULL, fillBy = NULL,  yVar = "value", legend = TRUE) {
+
+  # Decide which data function to use from op argument
   func <- match.fun(paste0("suma_", op, "_count"))
+
+  # Get the temporary data set
   tmp <- func(df, filterBy, groupBy)
-  print(tmp)
-  p <- ggplot2::ggplot(tmp, ggplot2::aes_string(x = quote(xVar), y = "value"))
-  if(!is.null(fillBy)){
-    p <- p + ggplot2::geom_bar(ggplot2::aes_string(fill = fillBy), stat = "identity")
+
+  # Create plot using xVar and yVar (yVar defaults to "value")
+  p <- ggplot2::ggplot(tmp, ggplot2::aes_string(x = xVar, y = yVar))
+
+  # Decide fill with fillBy
+  p <- p + ggplot2::geom_bar(ggplot2::aes_string(fill = fillBy), stat = "identity")
+
+  # Remove legend if specified
+  if(legend == FALSE) {
+    p <- p + ggplot2::guides(fill = FALSE)
   }
+
+  # Add facets if there is a facetBy
   if(!is.null(facetBy)){
     p <- p + ggplot2::facet_wrap(facetBy)
   }
-  return(p)
+
+  print(p)
 }

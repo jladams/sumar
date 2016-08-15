@@ -4,14 +4,14 @@
 \alias{suma_median_count}
 \title{Determine the median count across sessions}
 \usage{
-suma_median_count(df, groupBy = NULL, filterBy = NULL)
+suma_median_count(df, filterBy = NULL, groupBy = NULL)
 }
 \arguments{
 \item{df}{Data frame containing Suma Data}
 
-\item{groupBy}{Optional argument to group data, such as term, weekday, time}
-
 \item{filterBy}{Optional argument to filter results}
+
+\item{groupBy}{Optional argument to group data, such as term, weekday, time}
 }
 \description{
 This function determines the median count across sessions, with the option to group or filter results

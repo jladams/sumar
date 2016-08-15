@@ -50,7 +50,7 @@ suma_decode_activities <- function(df, key) {
 #' @param filterBy Optional argument to filter results
 
 suma_max_count <- function(df, filterBy = NULL, groupBy = NULL){
-  df <- suma_math_conditions(df, groupBy, filterBy, op = max)
+  df <- suma_math_conditions(df, filterBy, groupBy, op = max)
   return(df)
 }
 
@@ -62,8 +62,8 @@ suma_max_count <- function(df, filterBy = NULL, groupBy = NULL){
 #' @param groupBy Optional argument to group data, such as term, weekday, time
 #' @param filterBy Optional argument to filter results
 
-suma_min_count <- function(df, groupBy = NULL, filterBy = NULL){
-  df <- suma_math_conditions(df, groupBy, filterBy, op=min)
+suma_min_count <- function(df, filterBy = NULL, groupBy = NULL){
+  df <- suma_math_conditions(df, filterBy, groupBy, op=min)
   return(df)
 }
 
@@ -75,8 +75,8 @@ suma_min_count <- function(df, groupBy = NULL, filterBy = NULL){
 #' @param groupBy Optional argument to group data, such as term, weekday, time
 #' @param filterBy Optional argument to filter results
 
-suma_mean_count <- function(df, groupBy = NULL, filterBy = NULL){
-  df <- suma_math_conditions(df, groupBy, filterBy, op=mean)
+suma_mean_count <- function(df, filterBy = NULL, groupBy = NULL){
+  df <- suma_math_conditions(df, filterBy, groupBy, op=mean)
   return(df)
 }
 
@@ -88,8 +88,8 @@ suma_mean_count <- function(df, groupBy = NULL, filterBy = NULL){
 #' @param groupBy Optional argument to group data, such as term, weekday, time
 #' @param filterBy Optional argument to filter results
 
-suma_median_count <- function(df, groupBy = NULL, filterBy = NULL){
-  df <- suma_math_conditions(df, groupBy, filterBy, op=median)
+suma_median_count <- function(df, filterBy = NULL, groupBy = NULL ){
+  df <- suma_math_conditions(df, filterBy, groupBy, op=median)
   return(df)
 }
 
@@ -98,7 +98,7 @@ suma_median_count <- function(df, groupBy = NULL, filterBy = NULL){
 #' @param groupBy Optional argument to group data, such as term, weekday, time
 #' @param filterBy Optional argument to filter results
 #' @param op Used to specify which operation will be used (min, max, mean, etc.)
-suma_math_conditions <- function(df, groupBy = NULL, filterBy = NULL, op) {
+suma_math_conditions <- function(df, filterBy = NULL, groupBy = NULL, op) {
   ifelse(is.null(groupBy) & is.null(filterBy),
          df <- suma_math_nulls(df, op),
          ifelse(is.null(groupBy) & !is.null(filterBy),
