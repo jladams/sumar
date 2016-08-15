@@ -36,5 +36,5 @@ suma_plot <- function(df, xVar, op = "max", groupBy = NULL, filterBy = NULL, fac
     p <- p + ggplot2::facet_wrap(facetBy)
   }
 
-  print(p)
+  return(p)
 }

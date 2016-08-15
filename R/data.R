@@ -105,7 +105,7 @@ suma_math_conditions <- function(df, filterBy = NULL, groupBy = NULL, op) {
                 df <- suma_math_filter(df, filterBy, op),
                 ifelse(!is.null(groupBy) & is.null(filterBy),
                        df <- suma_math_group(df, groupBy, op),
-                       df <- suma_math_full(df, groupBy, filterBy, op)
+                       df <- suma_math_full(df, filterBy, groupBy, op)
                 )
          )
   )
@@ -149,7 +149,7 @@ suma_math_group <- function(df, groupBy, op) {
 
 #' Helper function to suma_MATH_count
 #' @inheritParams suma_math_conditions
-suma_math_full <- function(df, groupBy, filterBy, op) {
+suma_math_full <- function(df, filterBy, groupBy, op) {
   tmp <- c(groupBy, "sessionId")
   df <- df %>%
     dplyr::filter_(filterBy) %>%

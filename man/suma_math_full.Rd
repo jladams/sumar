@@ -4,14 +4,14 @@
 \alias{suma_math_full}
 \title{Helper function to suma_MATH_count}
 \usage{
-suma_math_full(df, groupBy, filterBy, op)
+suma_math_full(df, filterBy, groupBy, op)
 }
 \arguments{
 \item{df}{Data frame containing Suma Data}
 
-\item{groupBy}{Optional argument to group data, such as term, weekday, time}
-
 \item{filterBy}{Optional argument to filter results}
+
+\item{groupBy}{Optional argument to group data, such as term, weekday, time}
 
 \item{op}{Used to specify which operation will be used (min, max, mean, etc.)}
 }
