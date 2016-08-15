@@ -4,13 +4,13 @@
 \alias{suma_plot}
 \title{Quickly plot Suma data using ggplot2}
 \usage{
-suma_plot(df, x, op = "max", groupBy = NULL, filterBy = NULL,
+suma_plot(df, xVar, op = "max", groupBy = NULL, filterBy = NULL,
   facetBy = NULL, fillBy = NULL)
 }
 \arguments{
 \item{df}{Data frame containing Suma Data}
 
-\item{x}{What variable you'd like to use for the X axis of your plot(s)}
+\item{xVar}{What variable you'd like to use for the X axis of your plot(s)}
 
 \item{op}{What operation you want to use to get the data}
 
