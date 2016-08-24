@@ -7,14 +7,27 @@
 #' @param startDate Desired start date, defaults to beginning of current month
 #' @param endDate Desired end date, defaults to today's date
 #' @param sepDates Creates columns for easy grouping and sorting of date and time from sessionStart
+#' @param unnest If TRUE, separates counts with multiple activities into one row per activity
 #' @export
 #' @examples
 #' df <- suma_from_api("https://library.dartmouth.edu/suma/", 1, "2016-04-01", "2016-08-01")
 
-suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativeId = 1, startDate = cut(Sys.Date(), "month"), endDate = Sys.Date(), sepDates = TRUE) {
-  df <- jsonlite::fromJSON(paste0(url, "analysis/reports/lib/php/rawDataResults.php?id=", initiativeId, "&sdate=", lubridate::ymd(startDate), "&edate=", lubridate::ymd(endDate)), flatten=TRUE) %>%
-    dplyr::distinct(countId, .keep_all = TRUE) %>%
-    tidyr::unnest()
+suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativeId = 1, startDate = cut(Sys.Date(), "month"), endDate = Sys.Date(), sepDates = TRUE, unnest = TRUE) {
+  df <- jsonlite::fromJSON(paste0(url,
+                                  "analysis/reports/lib/php/rawDataResults.php?id=", initiativeId,
+                                  "&sdate=", lubridate::ymd(startDate),
+                                  "&edate=", lubridate::ymd(endDate)),
+                           flatten=TRUE) %>%
+    dplyr::distinct(countId, .keep_all = TRUE)
+  if(unnest){
+    df <- df %>%
+      tidyr::unnest()
+  } else {
+    df <- df %>%
+      tidyr::unnest() %>%
+      dplyr::group_by(sessionId, sessionStart, sessionEnd, time, count, location, countId) %>%
+      dplyr::summarise(activities = toString(unique(activities)))
+  }
   if(sepDates){
     df$year <- lubridate::year(df$sessionStart)
     df$month <- lubridate::month(df$sessionStart)
