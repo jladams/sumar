@@ -25,7 +25,7 @@ suma_get_terms <- function(date_time){
         as.Date(date_time) %in% lubridate::ymd(20110921):lubridate::ymd(20111207) |
         as.Date(date_time) %in% lubridate::ymd(20120910):lubridate::ymd(20121121) |
         as.Date(date_time) %in% lubridate::ymd(20130916):lubridate::ymd(20131127) |
-        as.Date(date_time) %in% lubridate::ymd(20140915):lubridate::ymd(20151126) |
+        as.Date(date_time) %in% lubridate::ymd(20140915):lubridate::ymd(20141126) |
         as.Date(date_time) %in% lubridate::ymd(20150916):lubridate::ymd(20151125) |
         as.Date(date_time) %in% lubridate::ymd(20160912):lubridate::ymd(20161123),
       "Fall",
