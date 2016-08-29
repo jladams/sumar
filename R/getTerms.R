@@ -4,10 +4,10 @@
 #' @export
 #' @param date_time A valid date or datetime, i.e., 2016-08-01
 #' @examples
-#' getTerms("2016-05-17")
+#' suma_get_terms("2016-05-17")
 #'
 #' df <- suma_from_api()
-#' df$terms <- getTerms(df$time)
+#' df$terms <- suma_get_terms(df$time)
 suma_get_terms <- function(date_time){
   ifelse(
     as.Date(date_time) %in% lubridate::ymd(20090625):lubridate::ymd(20090901) |

@@ -13,9 +13,9 @@ suma_get_terms(date_time)
 Takes a date or datetime and compares it do the dates of the Dartmouth academic calendar, returns a Term name.
 }
 \examples{
-getTerms("2016-05-17")
+suma_get_terms("2016-05-17")
 
 df <- suma_from_api()
-df$terms <- getTerms(df$time)
+df$terms <- suma_get_terms(df$time)
 }
 

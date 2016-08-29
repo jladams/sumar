@@ -2,6 +2,7 @@
 
 export(suma_decode_activities)
 export(suma_from_api)
+export(suma_get_activities)
 export(suma_get_terms)
 export(suma_max_count)
 export(suma_mean_count)

@@ -38,22 +38,6 @@ suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativ
   return(df)
 }
 
-#' Decode activities from numbers into activity names
-#'
-#' This function separates multiple activities attached to single Suma counts, compares them to a key table, and assigns activity names as appropriate.
-#' @param df Data frame containing the initial Suma data
-#' @param key Data frame containing the key table
-#' @export
-#' @examples
-#' df <- suma_from_api()
-#' sumaKey <- data("sumaKey")
-#' dfDecoded <- suma_decode_activities(df, sumaKey)
-
-suma_decode_activities <- function(df, key) {
-  df %>%
-    dplyr::left_join(key)
-}
-
 #' Determine the highest actual count across sessions
 #'
 #' This function determines the maximum count across sessions, with the option to group or filter results
