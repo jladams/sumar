@@ -41,9 +41,9 @@ suma_from_api <- function(url = "https://library.dartmouth.edu/sumaserver/", ini
     dplyr::left_join(activities, by = "actId") %>%
     dplyr::select(sessionId, sessionStart = start, sessionEnd = end, time, countId = id, location, count = number, activities = activity, actGroup)
 
-  if(!unnest){
+  if(unnest == FALSE){
     df <- df %>%
-      dplyr::group_by(sessionId, sessionStart, sessionEnd, time, count, location, countId, actGroup) %>%
+      dplyr::group_by(sessionId, sessionStart, sessionEnd, time, count, location, countId) %>%
       dplyr::summarise(activities = toString(unique(activities)))
   }
   if(sepDates){
