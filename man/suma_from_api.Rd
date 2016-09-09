@@ -4,9 +4,9 @@
 \alias{suma_from_api}
 \title{Gather data from the Suma API}
 \usage{
-suma_from_api(url = "https://library.dartmouth.edu/suma/", initiativeId = 1,
-  startDate = cut(Sys.Date(), "month"), endDate = Sys.Date(),
-  sepDates = TRUE, unnest = TRUE)
+suma_from_api(url = "https://library.dartmouth.edu/sumaserver/",
+  initiativeId = 1, startDate = cut(Sys.Date(), "month"),
+  endDate = Sys.Date(), sepDates = TRUE, unnest = TRUE)
 }
 \arguments{
 \item{url}{The base url, defaults to Dartmouth's https://library.dartmouth.edu/suma/}
@@ -25,6 +25,6 @@ suma_from_api(url = "https://library.dartmouth.edu/suma/", initiativeId = 1,
 This function hits the Suma API for the selected initiative ID during the given date range.
 }
 \examples{
-df <- suma_from_api("https://library.dartmouth.edu/suma/", 1, "2016-04-01", "2016-08-01")
+df <- suma_from_api("https://library.dartmouth.edu/sumaserver/", 1, "2016-04-01", "2016-08-01")
 }
 

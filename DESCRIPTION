@@ -1,7 +1,7 @@
 Package: sumar
 Type: Package
 Title: Tools to Work with Data from Suma
-Version: 0.1.0
+Version: 0.1.1
 Author: person("James", "Adams", email = "James.L.Adams@dartmouth.edu", role =
     c("aut", "cre"))
 Maintainer: <James.L.Adams@dartmouth.edu>

@@ -10,22 +10,40 @@
 #' @param unnest If TRUE, separates counts with multiple activities into one row per activity
 #' @export
 #' @examples
-#' df <- suma_from_api("https://library.dartmouth.edu/suma/", 1, "2016-04-01", "2016-08-01")
+#' df <- suma_from_api("https://library.dartmouth.edu/sumaserver/", 1, "2016-04-01", "2016-08-01")
 
-suma_from_api <- function(url = "https://library.dartmouth.edu/suma/", initiativeId = 1, startDate = cut(Sys.Date(), "month"), endDate = Sys.Date(), sepDates = TRUE, unnest = TRUE) {
+suma_from_api <- function(url = "https://library.dartmouth.edu/sumaserver/", initiativeId = 1, startDate = cut(Sys.Date(), "month"), endDate = Sys.Date(), sepDates = TRUE, unnest = TRUE) {
   df <- jsonlite::fromJSON(paste0(url,
-                                  "analysis/reports/lib/php/rawDataResults.php?id=", initiativeId,
-                                  "&sdate=", lubridate::ymd(startDate),
-                                  "&edate=", lubridate::ymd(endDate)),
-                           flatten=TRUE) %>%
-    dplyr::distinct(countId, .keep_all = TRUE)
-  if(unnest){
+                                  "query/sessions?id=", initiativeId,
+                                  "&sdate=", gsub("-","",lubridate::ymd(startDate)),
+                                  "&edate=", gsub("-","",lubridate::ymd(endDate))),
+                           flatten=TRUE)
+
+  locations <- df$initiative$dictionary$locations %>%
+    unique() %>%
+    dplyr::select(locId = id, location = title)
+
+  actGroups <- df$initiative$dictionary$activityGroups %>%
+    unique() %>%
+    dplyr::select(groupId = id, actGroup = title)
+
+  activities <- df$initiative$dictionary$activities %>%
+    unique() %>%
+    dplyr::select(actId = id, activity = title, groupId = activityGroup) %>%
+    dplyr::left_join(actGroups, by = "groupId")
+
+  df <- df$initiative$sessions %>%
+    dplyr::rename(sessionId = id) %>%
+    tidyr::unnest() %>%
+    tidyr::unnest() %>%
+    dplyr::rename(locId = location, actId = activities) %>%
+    dplyr::left_join(locations, by = "locId") %>%
+    dplyr::left_join(activities, by = "actId") %>%
+    dplyr::select(sessionId, sessionStart = start, sessionEnd = end, time, countId = id, location, count = number, activities = activity, actGroup)
+
+  if(!unnest){
     df <- df %>%
-      tidyr::unnest()
-  } else {
-    df <- df %>%
-      tidyr::unnest() %>%
-      dplyr::group_by(sessionId, sessionStart, sessionEnd, time, count, location, countId) %>%
+      dplyr::group_by(sessionId, sessionStart, sessionEnd, time, count, location, countId, actGroup) %>%
       dplyr::summarise(activities = toString(unique(activities)))
   }
   if(sepDates){
