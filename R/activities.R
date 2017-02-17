@@ -29,3 +29,17 @@ suma_decode_activities <- function(df, key) {
   df %>%
     dplyr::left_join(key)
 }
+
+#' Retrieves initiative names from Suma server
+#'
+#' This function retrieves a table of initiative names and ID numbers, useful for knowing which intiative ID to use when calling suma_from_api.
+#' @param url The url of the Suma query server. If your client is at "yourlibrary.edu/suma/client" this is usually "yourlibrary.edu/sumaserver"
+#' @export
+#' @examples
+#' initiatives <- suma_get_initiatives()
+
+suma_get_initiatives <- function(url = "https://library.dartmouth.edu/sumaserver/") {
+  df <- jsonlite::fromJSON(paste0(url, "query/counts?format=ALC"))
+  initiatives <- df %>% dplyr::select(initiativeId = id, initiativeName = title, description) %>% dplyr::arrange(initiativeId)
+  return(initiatives)
+}
