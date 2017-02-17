@@ -12,6 +12,20 @@ suma_get_activities <- function(url = "https://library.dartmouth.edu/sumaserver/
   return(activities)
 }
 
+#' Retrieves location names from Suma server
+#'
+#' This function retrieves a table of location names and ID numbers.
+#' @param url The url of the Suma query server. If your client is at "yourlibrary.edu/suma/client" this is usually "yourlibrary.edu/sumaserver"
+#' @export
+#' @examples
+#' locs <- suma_get_locations()
+
+suma_get_locations <- function(url = "https://library.dartmouth.edu/sumaserver/") {
+  locs <- jsonlite::fromJSON(paste0(url, "query/counts?format=ALC"))
+  locations <- data.table::rbindlist(locs$dictionary$locations) %>% unique() %>% dplyr::select(locId = id, location = title, description)
+  return(locations)
+}
+
 
 
 #' Decode activities from numbers into activity names
